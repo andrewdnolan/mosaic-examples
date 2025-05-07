@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import cartopy
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
@@ -43,7 +45,7 @@ descriptor = mosaic.Descriptor(
 
 # create the figure and a GeoAxis
 fig, ax = plt.subplots(1, 1, figsize=(6.5, 4.5), facecolor="w",
-                       constrained_layout=True,
+                       constrained_layout=False,
                        subplot_kw=dict(projection=projection))
 
 # set data to nan for values less than 15%
@@ -54,21 +56,21 @@ collection = mosaic.polypcolor(ax, descriptor, concentration, aa=False,
 
 ax.set_extent([-180, 180, 50, 90], ccrs.PlateCarree())
 
-gl = ax.gridlines()
-gl.xlocator = mticker.FixedLocator(np.arange(-180., 181., 20.))
-gl.ylocator = mticker.FixedLocator(np.arange(-80., 81., 10.))
-gl.xformatter = cartopy.mpl.gridliner.LONGITUDE_FORMATTER
-gl.yformatter = cartopy.mpl.gridliner.LATITUDE_FORMATTER
-gl.right_labels = False
-gl.left_labels = False
-gl.top_labels = True
-gl.bottom_labels = True
-gl.rotate_labels = False
-
-ax.add_feature(cfeature.LAND)
-ax.coastlines(resolution='50m', lw=0.6)
-
-fig.colorbar(collection, label="Sea ice concentration")
+#gl = ax.gridlines()
+#gl.xlocator = mticker.FixedLocator(np.arange(-180., 181., 20.))
+#gl.ylocator = mticker.FixedLocator(np.arange(-80., 81., 10.))
+#gl.xformatter = cartopy.mpl.gridliner.LONGITUDE_FORMATTER
+#gl.yformatter = cartopy.mpl.gridliner.LATITUDE_FORMATTER
+#gl.right_labels = False
+#gl.left_labels = False
+#gl.top_labels = True
+#gl.bottom_labels = True
+#gl.rotate_labels = False
+#
+#ax.add_feature(cfeature.LAND)
+#ax.coastlines(resolution='50m', lw=0.6)
+#
+#fig.colorbar(collection, label="Sea ice concentration")
 
 fig.savefig(f"figs/{mpassi_mesh}_NH_si-concentration.pdf", dpi=400,
             bbox_inches='tight', transparent=True)
